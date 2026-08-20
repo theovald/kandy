@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { listen } from "@tauri-apps/api/event";
+// Source Sans Pro (Kantega brand typography), bundled locally for offline use.
+import "@fontsource/source-sans-pro/400.css";
+import "@fontsource/source-sans-pro/600.css";
 import RecordingOverlay from "./RecordingOverlay";
 import {
   applyTheme,

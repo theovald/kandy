@@ -16,7 +16,11 @@
 }
 
 :root {
-  /* Typography */
+  /* Typography — Source Sans Pro (Kantega brand), falling back to the
+     platform sans-serif before the bundled font loads. */
+  font-family:
+    "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
   font-size: 15px;
   line-height: 24px;
   font-weight: 400;

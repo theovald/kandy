@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { platform } from "@tauri-apps/plugin-os";
+// Source Sans Pro (Kantega brand typography), bundled locally for offline use.
+import "@fontsource/source-sans-pro/400.css";
+import "@fontsource/source-sans-pro/600.css";
 import App from "./App";
 import { installCompatShims } from "./lib/compat";
 import {

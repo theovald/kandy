@@ -1,31 +1,34 @@
-/* Handy Colors */
+/* Kandy Colors — Kantega visual identity ("Frisk blåbær") */
 
 :root {
   /* Palette source of truth. Each themed color is defined once as a
      light/dark pair; the active tokens below and the `data-theme` overrides
-     in App.css reference these, so a hex value lives in exactly one place. */
-  --light-color-text: #0f0f0f;
-  --light-color-background: #fbfbfb;
-  --light-color-logo-primary: #faa2ca;
-  --light-color-logo-stroke: #382731;
+     in App.css reference these, so a hex value lives in exactly one place.
 
-  --dark-color-text: #fbfbfb;
-  --dark-color-background: #2c2b29;
-  --dark-color-logo-primary: #f28cbb;
-  --dark-color-logo-stroke: #fad1ed;
+     Kantega brand: deep purple (#27003D) for dark surfaces, warm off-white
+     (#FFF8FC) for light surfaces, coral (#EE3A64) as the primary accent. */
+  --light-color-text: #27003d;
+  --light-color-background: #fff8fc;
+  --light-color-logo-primary: #ee3a64;
+  --light-color-logo-stroke: #27003d;
+
+  --dark-color-text: #fff8fc;
+  --dark-color-background: #27003d;
+  --dark-color-logo-primary: #ff507e;
+  --dark-color-logo-stroke: #fff8fc;
 
   /* Semantic status colors. First used by SecureInputWarning; intended to
      replace the ad-hoc yellow-500/red-500 usages (e.g. ui/Alert.tsx) over
      time so status styling is themeable from one place. */
-  --light-color-warning: #d97706;
-  --light-color-error: #dc2626;
-  --dark-color-warning: #fbbf24;
-  --dark-color-error: #f87171;
+  --light-color-warning: #f49727;
+  --light-color-error: #ee3a64;
+  --dark-color-warning: #f49727;
+  --dark-color-error: #ff507e;
 
   /* Tokens that do not change between light and dark */
-  --color-background-ui: #da5893;
-  --color-text-stroke: #f6f6f6;
-  --color-mid-gray: #808080;
+  --color-background-ui: #ee3a64;
+  --color-text-stroke: #fff8fc;
+  --color-mid-gray: #a5a5a5;
 
   /* Active palette — defaults to light, follows the OS via the media query
      below, or is forced by `data-theme` (see the overrides below). */
@@ -52,7 +55,7 @@
  * Explicit theme override, driven by the `theme` setting via
  * `document.documentElement.dataset.theme`. When set, the higher-specificity
  * attribute selectors win over the `prefers-color-scheme` media query above,
- * so a user can keep Handy light or dark regardless of the OS setting.
+ * so a user can keep Kandy light or dark regardless of the OS setting.
  * `system` (or no attribute) leaves the OS in charge.
  *
  * Lives here (not in App.css) so every window that imports the shared palette —

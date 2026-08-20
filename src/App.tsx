@@ -189,6 +189,18 @@ function App() {
         settingsResult.data.onboarding_completed === true;
       const currentPlatform = platform();
 
+      // DEV-ONLY bypass: macOS re-signs the unsigned `tauri dev` binary on
+      // every rebuild, which invalidates the Accessibility grant and traps the
+      // onboarding wizard on "Waiting…". Skip the permission gate under Vite
+      // dev so the app is usable locally. Never compiled into a release build
+      // (import.meta.env.DEV is false there), so the real gate stays intact.
+      // Text-injection still needs Accessibility granted to actually type.
+      if (import.meta.env.DEV) {
+        setIsReturningUser(hasCompletedOnboarding);
+        setOnboardingStep(hasCompletedOnboarding ? "done" : "model");
+        return;
+      }
+
       if (hasCompletedOnboarding) {
         // Returning user - check if they need to grant permissions first
         setIsReturningUser(true);
