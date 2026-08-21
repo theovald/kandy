@@ -173,6 +173,10 @@ const settingUpdaters: {
     commands.changeTranscribeGpuDevice(value as string | null),
   extra_recording_buffer_ms: (value) =>
     commands.changeExtraRecordingBufferSetting(value as number),
+  meeting_summary_prompt: (value) =>
+    commands.changeMeetingSummaryPromptSetting(value as string),
+  meeting_summary_model: (value) =>
+    commands.changeMeetingSummaryModelSetting(value as string),
 };
 
 export const useSettingsStore = create<SettingsStore>()(

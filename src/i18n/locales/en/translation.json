@@ -16,7 +16,8 @@
     "postProcessing": "Post Process",
     "history": "History",
     "debug": "Debug",
-    "about": "About"
+    "about": "About",
+    "meeting": "Meeting"
   },
   "onboarding": {
     "subtitle": "To get started, choose a transcription model",
@@ -683,5 +684,45 @@
     "learnMore": "How to fix",
     "recorderBlocked": "Can't record shortcuts right now — macOS Secure Input is blocking key events. Resolve the Secure Input warning first.",
     "dismiss": "Dismiss"
+  },
+  "meeting": {
+    "title": "Record meeting",
+    "record": "Start recording",
+    "stop": "Stop & transcribe",
+    "transcribing": "Transcribing…",
+    "summarizing": "Generating summary…",
+    "captureHint": "Records your selected input device. Transcribed with your local Whisper model, then summarized in Norwegian via the Kantega LLM proxy.",
+    "noKey": "No LLM proxy key set — meetings are still recorded and transcribed, but summaries are disabled. Add a key under settings to enable Norwegian summaries.",
+    "pastMeetings": "Past meetings",
+    "empty": "No meetings yet. Start a recording above.",
+    "transcript": "Transcript",
+    "noTranscript": "No transcript.",
+    "generateSummary": "Summarize",
+    "regenerate": "Regenerate",
+    "copySummary": "Copy summary",
+    "copyTranscript": "Copy transcript",
+    "delete": "Delete meeting",
+    "addKeyHint": "Add an LLM proxy key to enable summaries.",
+    "aiBadge": "AI-generated · {{model}} (Kantega LLM proxy)",
+    "disclaimer": "A starting point for review — not a verbatim record. May contain errors.",
+    "settings": {
+      "title": "Summary settings",
+      "apiKey": "Kantega LLM proxy API key",
+      "apiKeyPlaceholder": "Paste your key…",
+      "apiKeySet": "Key set — paste a new key to replace",
+      "apiKeyHelp": "Stored locally and encrypted at rest; sent only as the auth header to the Kantega proxy.",
+      "save": "Save",
+      "savePrompt": "Save prompt",
+      "saved": "Saved",
+      "model": "Summary model",
+      "prompt": "Summary prompt (Norwegian)"
+    },
+    "errors": {
+      "startFailed": "Could not start recording",
+      "transcribeFailed": "Transcription failed",
+      "summaryFailed": "Could not generate summary",
+      "deleteFailed": "Could not delete meeting",
+      "saveFailed": "Could not save setting"
+    }
   }
 }

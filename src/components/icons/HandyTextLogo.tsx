@@ -35,7 +35,8 @@ const HandyTextLogo = ({
         fontSize={280}
         className="logo-primary"
       >
-        Kandy
+        {/* brand wordmark, not translatable copy */}
+        {"Kandy"}
       </text>
     </svg>
   );

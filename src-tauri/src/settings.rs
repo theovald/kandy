@@ -289,7 +289,7 @@ pub enum TranscribeAcceleratorSetting {
     Gpu,
 }
 
-#[derive(Clone, Serialize, Deserialize, Type)]
+#[derive(Clone, Default, Serialize, Deserialize, Type)]
 #[serde(transparent)]
 pub(crate) struct SecretMap(HashMap<String, String>);
 
@@ -467,6 +467,18 @@ pub struct AppSettings {
     /// `overlay_position` (position `none` → style `None`).
     #[serde(default = "default_overlay_style")]
     pub overlay_style: OverlayStyle,
+    /// Meeting feature: editable system prompt used to summarise a meeting
+    /// transcript. Norwegian (bokmål) by default; the transcript is sent as the
+    /// user message (see `kantega_llm`).
+    #[serde(default = "default_meeting_summary_prompt")]
+    pub meeting_summary_prompt: String,
+    /// Fully-qualified Kantega LLM proxy model id used for meeting summaries.
+    #[serde(default = "default_meeting_summary_model")]
+    pub meeting_summary_model: String,
+    /// Kantega LLM proxy API key(s), stored in a redacting `SecretMap` (keyed by
+    /// [`crate::kantega_llm::MEETING_LLM_KEY_ID`]) so it never leaks to logs.
+    #[serde(default)]
+    pub meeting_llm_api_keys: SecretMap,
 }
 
 fn default_model() -> String {
@@ -500,7 +512,11 @@ fn default_autostart_enabled() -> bool {
 }
 
 fn default_update_checks_enabled() -> bool {
-    true
+    // Off by default in this Kandy fork: the updater endpoint points at the
+    // upstream cjpais/Handy release channel, so an enabled auto-update would
+    // offer to replace Kandy with upstream Handy. Opt in only against your own
+    // release channel.
+    false
 }
 
 fn default_show_whats_new_on_update() -> bool {
@@ -729,6 +745,28 @@ fn default_transcribe_gpu_device() -> Option<String> {
     None // automatic device selection
 }
 
+/// Default Kantega LLM proxy model for meeting summaries. Sonnet: fast, strong
+/// Norwegian, cheap enough (see the `kantega-llmproxy` conventions).
+fn default_meeting_summary_model() -> String {
+    "vertex_ai/claude-sonnet-4-6".to_string()
+}
+
+/// Default meeting-summary prompt (Norwegian bokmål). Used as the system prompt;
+/// the raw transcript is sent as the user message. Editable in the Meeting pane.
+pub fn default_meeting_summary_prompt() -> String {
+    "Du er en dyktig møtereferent. Lag et strukturert møtereferat på norsk (bokmål) basert på transkripsjonen brukeren sender.
+
+Referatet skal inneholde:
+- **Kort oppsummering** (2–4 setninger)
+- **Deltakere** (kun hvis de nevnes)
+- **Hovedpunkter og beslutninger** (punktliste)
+- **Aksjonspunkter** – hvem gjør hva, med frist hvis nevnt (marker ansvarlig i **fet skrift**)
+- **Åpne spørsmål / oppfølging**
+
+Vær presis og nøytral. Transkripsjonen er maskingenerert og kan inneholde feil – bruk skjønn, og ikke dikt opp informasjon. Er noe uklart, skriv «uklart». Svar kun med selve referatet i Markdown."
+        .to_string()
+}
+
 /// Accept the 0.1-era integer registry index long enough for the schema
 /// migration to clear it. Device indices are process-local in transcribe.cpp
 /// 0.2 and must never be carried across launches.
@@ -920,6 +958,9 @@ pub fn get_default_settings() -> AppSettings {
         extra_recording_buffer_ms: 0,
         vad_enabled: default_vad_enabled(),
         overlay_style: default_overlay_style(),
+        meeting_summary_prompt: default_meeting_summary_prompt(),
+        meeting_summary_model: default_meeting_summary_model(),
+        meeting_llm_api_keys: SecretMap::default(),
     }
 }
 
